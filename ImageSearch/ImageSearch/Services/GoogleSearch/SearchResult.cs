@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageSearch.Model
+namespace ImageSearch.Model.GoogleSearch
 {
    
-
     public class SearchResult
     {
         [JsonProperty("searchInformation")]

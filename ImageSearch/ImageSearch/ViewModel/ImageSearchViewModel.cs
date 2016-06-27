@@ -11,6 +11,7 @@ using ImageSearch.Model;
 using Plugin.Media;
 using Acr.UserDialogs;
 using Plugin.Media.Abstractions;
+using ImageSearch.Model.BingSearch;
 
 namespace ImageSearch.ViewModel
 {
@@ -25,10 +26,44 @@ namespace ImageSearch.ViewModel
         
         public async Task<bool> SearchForImagesAsync(string query)
         {
-            var url = $"https://www.googleapis.com/customsearch/v1" +
+			//Bing Image API
+			var url = $"https://api.cognitive.microsoft.com/bing/v5.0/images/" + 
+				      $"search?q={query}" +
+					  $"&count=20&offset=0&mkt=en-us&safeSearch=Strict";
+
+			try
+			{
+				using (var client = new HttpClient())
+				{
+					client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", 
+						CognitiveServicesKeys.BingSearch);
+
+					var json = await client.GetStringAsync(url);
+
+					var result = JsonConvert.DeserializeObject<SearchResult>(json);
+
+					Images.ReplaceRange(result.Images.Select(i => new ImageResult
+					{
+						ContextLink = i.HostPageUrl,
+						FileFormat = i.EncodingFormat,
+						ImageLink = i.ContentUrl,
+						ThumbnailLink = i.ThumbnailUrl,
+						Title = i.Name
+					}));
+				}
+			}
+			catch (Exception ex)
+			{	
+				await UserDialogs.Instance.AlertAsync("Unable to query images: " + ex.Message);
+				return false;
+			}
+
+			//Google Image API
+			//Add: using ImageSearch.Model.GoogleSearch and remove the BingSearch using statement
+			/*var url = $"https://www.googleapis.com/customsearch/v1" +
                 $"?q={query}" +
-                $"&searchType=image&key={GoogleSearchService.APIKey}" +
-                $"&cx={GoogleSearchService.CX}";
+                $"&searchType=image&key={GoogleServicesKeys.APIKey}" +
+                $"&cx={GoogleServicesKeys.CX}";
 
             try
             {
@@ -52,11 +87,11 @@ namespace ImageSearch.ViewModel
             }
             catch (Exception ex)
             {
-                //TODO Log stuff!
+                await UserDialogs.Instance.AlertAsync("Unable to query images: " + ex.Message);
                 return false;
-            }
+            }*/
 
-            return true;
+			return true;
         }
 
 

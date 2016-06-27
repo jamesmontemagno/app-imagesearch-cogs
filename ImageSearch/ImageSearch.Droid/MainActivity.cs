@@ -79,7 +79,7 @@ namespace ImageSearch.Droid
                 clickButton.Enabled = false;
                 progressBar.Visibility = ViewStates.Visible;
 
-                await viewModel.AnalyzeImageAsync(viewModel.Images[args.Position].ImageLink);
+                await viewModel.AnalyzeImageAsync(viewModel.Images[args.Position].ThumbnailLink);
 
                 progressBar.Visibility = ViewStates.Gone;
                 clickButton.Enabled = true;

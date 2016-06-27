@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImageSearch.Services
 {
-    public class GoogleSearchService
+    public class GoogleServicesKeys
     {
         //Setup a custom search with Image enabled with a website of *: https://cse.google.com/cse/
         public const string APIKey = "__ENTER YOUR KEY__";
@@ -17,5 +17,9 @@ namespace ImageSearch.Services
     {
         //Setup a Emotion API key for Cognitive Services at: https://www.microsoft.com/cognitive-services/
         public const string Emotion = "__ENTER YOUR KEY__";
-    } 
+
+		//Setup a Bing Search API key from: http://www.microsoft.com/cognitive-services
+		public const string BingSearch = "__ENTER YOUR KEY__";
+
+	} 
 }
