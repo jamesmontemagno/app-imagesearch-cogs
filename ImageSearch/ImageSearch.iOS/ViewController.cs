@@ -22,25 +22,6 @@ namespace ImageSearch.iOS
             viewModel = new ImageSearchViewModel();
 
             CollectionViewImages.WeakDataSource = this;
-
-            ButtonSearch.TouchUpInside += async (sender, args) =>
-            {
-                ButtonSearch.Enabled = false;
-                ActivityIsLoading.StartAnimating();
-
-                await viewModel.SearchForImagesAsync(TextFieldQuery.Text);
-                CollectionViewImages.ReloadData();
-
-                ButtonSearch.Enabled = true;
-                ActivityIsLoading.StopAnimating();
-
-            };
-
-
-            NavigationItem.RightBarButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.Camera, async delegate
-            {
-                await viewModel.TakePhotoAndAnalyzeAsync(false);
-            });
            
 		}
 

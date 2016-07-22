@@ -55,37 +55,6 @@ namespace ImageSearch.Droid
             var clickButton = FindViewById<Button>(Resource.Id.my_button);
 
 
-            clickButton.Click += async (sender, args) =>
-            {
-                clickButton.Enabled = false;
-                progressBar.Visibility = ViewStates.Visible;
-
-                await viewModel.SearchForImagesAsync(query.Text);
-
-                progressBar.Visibility = ViewStates.Gone;
-                clickButton.Enabled = true;
-            };
-
-            var photo = FindViewById<Button>(Resource.Id.button1);
-
-            photo.Click += async (sender, args) =>
-            {
-                await viewModel.TakePhotoAndAnalyzeAsync();
-            };
-
-
-            adapter.ItemClick += async (sender, args) =>
-            {
-                clickButton.Enabled = false;
-                progressBar.Visibility = ViewStates.Visible;
-
-                await viewModel.AnalyzeImageAsync(viewModel.Images[args.Position].ThumbnailLink);
-
-                progressBar.Visibility = ViewStates.Gone;
-                clickButton.Enabled = true;
-            };
-            
-
 
             UserDialogs.Init(this);
             SupportActionBar.SetDisplayHomeAsUpEnabled(false);

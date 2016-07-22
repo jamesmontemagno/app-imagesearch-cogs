@@ -33,63 +33,15 @@ namespace ImageSearch.ViewModel
 
 			try
 			{
-				using (var client = new HttpClient())
-				{
-					client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", 
-						CognitiveServicesKeys.BingSearch);
+                var headerKey = "Ocp-Apim-Subscription-Key";
 
-					var json = await client.GetStringAsync(url);
-
-					var result = JsonConvert.DeserializeObject<SearchResult>(json);
-
-					Images.ReplaceRange(result.Images.Select(i => new ImageResult
-					{
-						ContextLink = i.HostPageUrl,
-						FileFormat = i.EncodingFormat,
-						ImageLink = i.ContentUrl,
-						ThumbnailLink = i.ThumbnailUrl,
-						Title = i.Name
-					}));
-				}
+                
 			}
 			catch (Exception ex)
 			{	
 				await UserDialogs.Instance.AlertAsync("Unable to query images: " + ex.Message);
 				return false;
 			}
-
-			//Google Image API
-			//Add: using ImageSearch.Model.GoogleSearch and remove the BingSearch using statement
-			/*var url = $"https://www.googleapis.com/customsearch/v1" +
-                $"?q={query}" +
-                $"&searchType=image&key={GoogleServicesKeys.APIKey}" +
-                $"&cx={GoogleServicesKeys.CX}";
-
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    var json = await client.GetStringAsync(url);
-
-                    var result = JsonConvert.DeserializeObject<SearchResult>(json);
-
-                    Images.ReplaceRange(result.Items.Select(i => new ImageResult
-                    {
-                        ContextLink = i.Image.ContextLink,
-                        FileFormat = i.FileFormat,
-                        ImageLink = i.Link,
-                        ThumbnailLink = i.Image.ThumbnailLink,
-                        Title = i.Title
-                    }));
-                }
-                
-
-            }
-            catch (Exception ex)
-            {
-                await UserDialogs.Instance.AlertAsync("Unable to query images: " + ex.Message);
-                return false;
-            }*/
 
 			return true;
         }
@@ -120,9 +72,7 @@ namespace ImageSearch.ViewModel
             await UserDialogs.Instance.AlertAsync(result);
            
         }
-
-
-
+        
 
 
 

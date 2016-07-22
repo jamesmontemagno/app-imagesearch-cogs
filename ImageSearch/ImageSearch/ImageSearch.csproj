@@ -38,10 +38,6 @@
     <Compile Include="Services\BingSearch\Suggestion.cs" />
     <Compile Include="Services\BingSearch\Thumbnail.cs" />
     <Compile Include="Services\EmotionService.cs" />
-    <Compile Include="Services\GoogleSearch\SearchResult.cs" />
-    <Compile Include="Services\GoogleSearch\Image.cs" />
-    <Compile Include="Services\GoogleSearch\SearchItem.cs" />
-    <Compile Include="Services\GoogleSearch\SearchInformation.cs" />
     <Compile Include="Model\ImageResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ServiceKeys.cs" />
