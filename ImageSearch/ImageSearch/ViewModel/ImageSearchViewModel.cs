@@ -34,9 +34,9 @@ namespace ImageSearch.ViewModel
 			try
 			{
                 var headerKey = "Ocp-Apim-Subscription-Key";
-
                 
-			}
+
+            }
 			catch (Exception ex)
 			{	
 				await UserDialogs.Instance.AlertAsync("Unable to query images: " + ex.Message);

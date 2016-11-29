@@ -183,7 +183,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\main.axml" />
+    <AndroidResource Include="Resources\layout\main.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\strings.xml" />
@@ -207,6 +209,11 @@
     <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\menu\menu_gps.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_photo.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_photo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_photo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_photo.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_photo.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImageSearch\ImageSearch.csproj">

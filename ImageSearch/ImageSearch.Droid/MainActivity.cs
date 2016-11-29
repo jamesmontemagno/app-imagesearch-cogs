@@ -20,11 +20,8 @@ namespace ImageSearch.Droid
         ImageSearchViewModel viewModel;
         ProgressBar progressBar;
 
-        protected override int LayoutResource
-        {
-            get { return Resource.Layout.main; }
-        }
-        int count = 1;
+        protected override int LayoutResource => Resource.Layout.main;
+        
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -48,13 +45,13 @@ namespace ImageSearch.Droid
             progressBar = FindViewById<ProgressBar>(Resource.Id.my_progress);
             progressBar.Visibility = ViewStates.Gone;
 
-            var query = FindViewById<EditText>(Resource.Id.my_query);
+            //get edit text here
 
             // Get our button from the layout resource,
             // and attach an event to it
-            var clickButton = FindViewById<Button>(Resource.Id.my_button);
 
 
+            
 
             UserDialogs.Init(this);
             SupportActionBar.SetDisplayHomeAsUpEnabled(false);
