@@ -14,11 +14,6 @@ Setup a Emotion API key for Cognitive Services at: https://www.microsoft.com/cog
 
 Setup a Bing Search API Key at: https://microsoft.com/cognitive-services
 
-### Optional: Google Custom Search
-If desired you can swap out the Bing Image search with a Google image search by following these instructions:
-
-Setup a custom search with Image enabled with a website of *: https://cse.google.com/cse/
-
 
 ## Open source libraries
 The following amazing libraries were used to create this app:

@@ -7,7 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true" >
+        android:focusableInTouchMode="true">
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
@@ -18,11 +18,16 @@
             android:id="@+id/main_content"
             android:layout_below="@id/toolbar"
             android:padding="8dp">
-            <EditText
-                android:id="@+id/my_query"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/my_query"
+                    android:layout_width="match_parent"
+                    android:hint="search cute things"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
             <ProgressBar
                 android:id="@+id/my_progress"
                 android:layout_width="wrap_content"
@@ -34,7 +39,8 @@
                 android:id="@+id/my_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Go!" />
+                android:layout_gravity="bottom"
+                android:text="Search" />
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -51,5 +57,5 @@
         android:src="@drawable/ic_photo"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </FrameLayout>
