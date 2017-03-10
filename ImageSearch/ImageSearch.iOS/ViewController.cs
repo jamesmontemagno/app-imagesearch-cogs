@@ -1,6 +1,7 @@
 ﻿using System;
 using Foundation;
 using UIKit;
+
 using ImageSearch.ViewModel;
 using SDWebImage;
 
@@ -19,30 +20,36 @@ namespace ImageSearch.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+
             viewModel = new ImageSearchViewModel();
 
             CollectionViewImages.WeakDataSource = this;
+
 
             ButtonSearch.TouchUpInside += async (sender, args) =>
             {
                 ButtonSearch.Enabled = false;
                 ActivityIsLoading.StartAnimating();
 
+                await UIView.AnimateAsync(1.0, () =>
+                CollectionViewImages.Alpha = 0);
+
                 await viewModel.SearchForImagesAsync(TextFieldQuery.Text);
                 CollectionViewImages.ReloadData();
 
-                ButtonSearch.Enabled = true;
-                ActivityIsLoading.StopAnimating();
+                await UIView.AnimateAsync(1.0, () =>
+                CollectionViewImages.Alpha = 1);
 
+
+                ActivityIsLoading.StopAnimating();
+                ButtonSearch.Enabled = true;
             };
 
-
-            NavigationItem.RightBarButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.Camera, async delegate
-            {
-                await viewModel.TakePhotoAndAnalyzeAsync(false);
-            });
-           
+            SetupCamera();
 		}
+
+    
+        
 
 		public override void DidReceiveMemoryWarning ()
 		{
@@ -65,7 +72,23 @@ namespace ImageSearch.iOS
             cell.Image.SetImage(new NSUrl(item.ThumbnailLink));
 
 
+
             return cell;
+        }
+
+        void SetupCamera()
+        {
+            NavigationItem.RightBarButtonItem = new UIBarButtonItem(
+                UIBarButtonSystemItem.Camera, async delegate
+                {
+                    ButtonSearch.Enabled = false;
+                    ActivityIsLoading.StartAnimating();
+
+                    await viewModel.TakePhotoAndAnalyzeAsync(false);
+
+                    ButtonSearch.Enabled = true;
+                    ActivityIsLoading.StopAnimating();
+                });
         }
     }
 }

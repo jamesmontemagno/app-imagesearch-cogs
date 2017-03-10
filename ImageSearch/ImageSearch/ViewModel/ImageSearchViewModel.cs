@@ -12,6 +12,7 @@ using Plugin.Media;
 using Acr.UserDialogs;
 using Plugin.Media.Abstractions;
 using ImageSearch.Model.BingSearch;
+using Plugin.Connectivity;
 
 namespace ImageSearch.ViewModel
 {
@@ -26,70 +27,46 @@ namespace ImageSearch.ViewModel
         
         public async Task<bool> SearchForImagesAsync(string query)
         {
+           
+            if(!CrossConnectivity.Current.IsConnected)
+            {
+                await UserDialogs.Instance.AlertAsync("You are offline");
+                return false;
+            }
+           
 			//Bing Image API
 			var url = $"https://api.cognitive.microsoft.com/bing/v5.0/images/" + 
 				      $"search?q={query}" +
 					  $"&count=20&offset=0&mkt=en-us&safeSearch=Strict";
 
-			try
-			{
-				using (var client = new HttpClient())
-				{
-					client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", 
-						CognitiveServicesKeys.BingSearch);
-
-					var json = await client.GetStringAsync(url);
-
-					var result = JsonConvert.DeserializeObject<SearchResult>(json);
-
-					Images.ReplaceRange(result.Images.Select(i => new ImageResult
-					{
-						ContextLink = i.HostPageUrl,
-						FileFormat = i.EncodingFormat,
-						ImageLink = i.ContentUrl,
-						ThumbnailLink = i.ThumbnailUrl,
-						Title = i.Name
-					}));
-				}
-			}
-			catch (Exception ex)
-			{	
-				await UserDialogs.Instance.AlertAsync("Unable to query images: " + ex.Message);
-				return false;
-			}
-
-			//Google Image API
-			//Add: using ImageSearch.Model.GoogleSearch and remove the BingSearch using statement
-			/*var url = $"https://www.googleapis.com/customsearch/v1" +
-                $"?q={query}" +
-                $"&searchType=image&key={GoogleServicesKeys.APIKey}" +
-                $"&cx={GoogleServicesKeys.CX}";
-
             try
             {
-                using (var client = new HttpClient())
+                var headerKey = "Ocp-Apim-Subscription-Key";
+                var headerValue = CognitiveServicesKeys.BingSearch;
+
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Add(headerKey, headerValue);
+
+                var json = await client.GetStringAsync(url);
+
+                var stuff = JsonConvert.DeserializeObject<SearchResult>(json);
+
+                var items = stuff.Images.Select(i => new ImageResult
                 {
-                    var json = await client.GetStringAsync(url);
+                    ContextLink = i.ContentUrl,
+                    FileFormat = i.EncodingFormat,
+                    ImageLink = i.ContentUrl,
+                    ThumbnailLink = i.ThumbnailUrl ?? i.ContentUrl,
+                    Title = i.Name
+                });
 
-                    var result = JsonConvert.DeserializeObject<SearchResult>(json);
-
-                    Images.ReplaceRange(result.Items.Select(i => new ImageResult
-                    {
-                        ContextLink = i.Image.ContextLink,
-                        FileFormat = i.FileFormat,
-                        ImageLink = i.Link,
-                        ThumbnailLink = i.Image.ThumbnailLink,
-                        Title = i.Title
-                    }));
-                }
-                
+                Images.ReplaceRange(items);
 
             }
             catch (Exception ex)
             {
-                await UserDialogs.Instance.AlertAsync("Unable to query images: " + ex.Message);
                 return false;
-            }*/
+            }
 
 			return true;
         }
@@ -120,9 +97,7 @@ namespace ImageSearch.ViewModel
             await UserDialogs.Instance.AlertAsync(result);
            
         }
-
-
-
+        
 
 
 
@@ -130,26 +105,26 @@ namespace ImageSearch.ViewModel
         {
             string result = "Error";
             MediaFile file = null;
+            IProgressDialog progress;
+
             try
             {
-
                 await CrossMedia.Current.Initialize();
 
-
-                if(useCamera)
+                if (useCamera)
                 {
                     file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
                     {
-                        Directory = "Samples",
-                        Name = "test.jpg",
-                        SaveToAlbum = true
+                        Directory = "Sample",
+                        Name = "face.jpg",
+                        PhotoSize = PhotoSize.Medium
                     });
                 }
                 else
                 {
                     file = await CrossMedia.Current.PickPhotoAsync();
                 }
-
+               
 
                 if (file == null)
                     result = "No photo taken.";
@@ -165,7 +140,7 @@ namespace ImageSearch.ViewModel
                 result =  ex.Message;
             }
 
-            await UserDialogs.Instance.AlertAsync(result, "Emotion", "OK");
+            await UserDialogs.Instance.AlertAsync(result);
         }
 
     }

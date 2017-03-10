@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace ImageSearch.Services
 {
-    public class GoogleServicesKeys
-    {
-        //Setup a custom search with Image enabled with a website of *: https://cse.google.com/cse/
-        public const string APIKey = "__ENTER YOUR KEY__";
-        public const string CX = "__ENTER YOUR CX__";
-    }
 
     public class CognitiveServicesKeys
     {
