@@ -155,12 +155,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ImageSearch\ImageSearch.csproj">
-      <Name>ImageSearch</Name>
-      <Project>{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
       <InProject>false</InProject>
     </ImageAsset>
@@ -241,6 +235,7 @@
       <DependentUpon>ImageCell.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+  <Import Project="..\..\ImageSearch.Shared\ImageSearch.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

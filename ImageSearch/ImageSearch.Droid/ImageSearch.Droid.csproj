@@ -224,12 +224,7 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_photo.png" />
     <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ImageSearch\ImageSearch.csproj">
-      <Project>{1796e5d8-d2ef-495f-acda-efc93710c7de}</Project>
-      <Name>ImageSearch</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <Import Project="..\..\ImageSearch.Shared\ImageSearch.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

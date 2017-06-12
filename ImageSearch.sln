@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSearch.iOS", "ImageSearch\ImageSearch.iOS\ImageSearch.iOS.csproj", "{A6BB4BC6-708C-4CF9-96F1-1EC5279E94C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSearch", "ImageSearch\ImageSearch\ImageSearch.csproj", "{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSearch.Droid", "ImageSearch\ImageSearch.Droid\ImageSearch.Droid.csproj", "{E033292C-1101-44F4-867D-083EF8DB215F}"
 EndProject
@@ -14,7 +12,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ImageSearch.Shared", "ImageSearch.Shared\ImageSearch.Shared.shproj", "{707E4C63-553D-4D42-9936-8E9260608E99}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		ImageSearch.Shared\ImageSearch.Shared.projitems*{707e4c63-553d-4d42-9936-8e9260608e99}*SharedItemsImports = 13
+		ImageSearch.Shared\ImageSearch.Shared.projitems*{a6bb4bc6-708c-4cf9-96f1-1ec5279e94c9}*SharedItemsImports = 4
+		ImageSearch.Shared\ImageSearch.Shared.projitems*{e033292c-1101-44f4-867d-083ef8db215f}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -42,26 +47,6 @@ Global
 		{A6BB4BC6-708C-4CF9-96F1-1EC5279E94C9}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{A6BB4BC6-708C-4CF9-96F1-1EC5279E94C9}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{A6BB4BC6-708C-4CF9-96F1-1EC5279E94C9}.Release|x86.ActiveCfg = Release|iPhone
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Debug|ARM.Build.0 = Debug|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Debug|x86.Build.0 = Debug|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Release|ARM.ActiveCfg = Release|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Release|ARM.Build.0 = Release|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Release|iPhone.Build.0 = Release|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Release|x86.ActiveCfg = Release|Any CPU
-		{1796E5D8-D2EF-495F-ACDA-EFC93710C7DE}.Release|x86.Build.0 = Release|Any CPU
 		{E033292C-1101-44F4-867D-083EF8DB215F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E033292C-1101-44F4-867D-083EF8DB215F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E033292C-1101-44F4-867D-083EF8DB215F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
