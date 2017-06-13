@@ -6,12 +6,13 @@ using Android.OS;
 using Android.Support.V7.Widget;
 using ImageSearch.Droid.Adapters;
 using ImageSearch.ViewModel;
+
 using Plugin.Permissions;
 using Acr.UserDialogs;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Content.PM;
-
+using Toolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace ImageSearch.Droid
 {
@@ -25,47 +26,56 @@ namespace ImageSearch.Droid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.main);
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            if (toolbar != null)
-            {
-                SetSupportActionBar(toolbar);
-            }
+
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+            
 
             viewModel = new ImageSearchViewModel();
+            
 
             var progress = FindViewById<ProgressBar>(Resource.Id.my_progress);
             var query = FindViewById<EditText>(Resource.Id.my_query);
+            var button = FindViewById<Button>(Resource.Id.my_button);
 
 
-            progress.Visibility = ViewStates.Gone;
-
-
-            var clickButton = FindViewById<Button>(Resource.Id.my_button);
-
-
-            clickButton.Click += async (sender, args) =>
+            button.Click += async (sender, args) =>
             {
-                clickButton.Enabled = false;
+                button.Enabled = false;
                 progress.Visibility = ViewStates.Visible;
 
-                await viewModel.SearchForImagesAsync(query.Text);
+                await viewModel.SearchForImagesAsync(query.Text.Trim());
 
                 progress.Visibility = ViewStates.Gone;
-                clickButton.Enabled = true;
+                button.Enabled = true;
             };
+
 
             SetupMainView();
             SetupCamera();
-
         }
-        protected override void OnStart()
-        {
-            base.OnStart();
-        }
+ 
 
-        protected override void OnStop()
+       
+        RecyclerView recyclerView;
+        RecyclerView.LayoutManager layoutManager;
+        ImageAdapter adapter;
+        void SetupMainView()
         {
-            base.OnStop();
+            adapter = new ImageAdapter(this, viewModel);
+
+            recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
+
+            recyclerView.SetAdapter(adapter);
+
+            layoutManager = new GridLayoutManager(this, 2);
+
+            recyclerView.SetLayoutManager(layoutManager);
+
+
+
+
+            UserDialogs.Init(this);
         }
 
         void SetupCamera()
@@ -87,26 +97,6 @@ namespace ImageSearch.Droid
             };
         }
 
-        RecyclerView recyclerView;
-        RecyclerView.LayoutManager layoutManager;
-        ImageAdapter adapter;
-        void SetupMainView()
-        {
-            adapter = new ImageAdapter(this, viewModel);
-
-            recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
-
-            recyclerView.SetAdapter(adapter);
-
-            layoutManager = new GridLayoutManager(this, 2);
-
-            recyclerView.SetLayoutManager(layoutManager);
-
-
-
-
-            UserDialogs.Init(this);
-        }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {

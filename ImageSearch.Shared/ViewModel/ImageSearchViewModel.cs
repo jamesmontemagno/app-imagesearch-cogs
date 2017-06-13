@@ -27,8 +27,19 @@ namespace ImageSearch.ViewModel
         
         public async Task<bool> SearchForImagesAsync(string query)
         {
+            if(string.IsNullOrWhiteSpace(query))
+            {
+                await UserDialogs.Instance.AlertAsync("Please search for cute things");
+                return false;
+            }
+
+            if(!CrossConnectivity.Current.IsConnected)
+            {
+                await UserDialogs.Instance.AlertAsync("On interwebs :(");
+                return false;
+
+            }
             
-           
 			//Bing Image API
 			var url = $"https://api.cognitive.microsoft.com/bing/v5.0/images/" + 
 				      $"search?q={query}" +
@@ -43,27 +54,27 @@ namespace ImageSearch.ViewModel
                 client.DefaultRequestHeaders.Add(
                     headerKey, headerValue);
 
-                var json = await client.GetStringAsync(
-                    url);
+                var json = await client.GetStringAsync(url);
 
-                var result = JsonConvert.DeserializeObject<SearchResult>(json);
+                var result = JsonConvert.DeserializeObject<SearchResult>(
+                    json);
 
-                var images = result.Images.Select(
-                    i => new ImageResult
-                    {
-                        ContextLink = i.HostPageUrl,
-                        FileFormat = i.EncodingFormat,
-                        ImageLink = i.ContentUrl,
-                        ThumbnailLink = i.ThumbnailUrl ?? i.ContentUrl,
-                        Title = i.Name
-                    });
-
+                var images = result.Images.Select(i => new ImageResult
+                {
+                    ContextLink = i.HostPageUrl,
+                    FileFormat = i.EncodingFormat,
+                    ImageLink = i.ContentUrl,
+                    ThumbnailLink = i.ThumbnailUrl ?? i.ContentUrl,
+                    Title = i.Name
+                });
 
                 Images.ReplaceRange(images);
+               
             }
             catch (Exception ex)
             {
 
+                await UserDialogs.Instance.AlertAsync("Something went terribly wrong, please open a ticket with support.");
                 return false;
             }
 
@@ -92,9 +103,10 @@ namespace ImageSearch.ViewModel
             {
                 result =  "Unable to analyze image";
             }
-           
+            await UserDialogs.Instance.AlertAsync(result);
+
         }
-        
+
 
 
 

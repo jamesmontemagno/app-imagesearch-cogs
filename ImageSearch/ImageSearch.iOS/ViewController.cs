@@ -31,14 +31,19 @@ namespace ImageSearch.iOS
                 ButtonSearch.Enabled = false;
                 ActivityIsLoading.StartAnimating();
 
-                await UIView.AnimateAsync(1.0, () =>
-                CollectionViewImages.Alpha = 0);
+                await UIView.AnimateAsync(.5, () =>
+                {
+                    CollectionViewImages.Alpha = 0;
+                });
 
                 await viewModel.SearchForImagesAsync(TextFieldQuery.Text);
                 CollectionViewImages.ReloadData();
 
-                await UIView.AnimateAsync(1.0, () =>
-                CollectionViewImages.Alpha = 1);
+
+                await UIView.AnimateAsync(.5, () =>
+                {
+                    CollectionViewImages.Alpha = 1;
+                });
 
 
                 ActivityIsLoading.StopAnimating();
@@ -47,6 +52,8 @@ namespace ImageSearch.iOS
 
             SetupCamera();
 		}
+
+        
 
     
         
