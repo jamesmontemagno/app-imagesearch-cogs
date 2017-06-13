@@ -4,10 +4,12 @@ using UIKit;
 
 using ImageSearch.ViewModel;
 using SDWebImage;
+using ImageSearch.Shared.View;
+using Xamarin.Forms;
 
 namespace ImageSearch.iOS
 {
-    public partial class ViewController : UIViewController, IUICollectionViewDataSource
+    public partial class ViewController : UIViewController, IUICollectionViewDataSource, IUICollectionViewDelegate
 	{
 
         ImageSearchViewModel viewModel;
@@ -24,7 +26,7 @@ namespace ImageSearch.iOS
             viewModel = new ImageSearchViewModel();
 
             CollectionViewImages.WeakDataSource = this;
-
+            CollectionViewImages.WeakDelegate = this;
 
             ButtonSearch.TouchUpInside += async (sender, args) =>
             {
@@ -53,12 +55,23 @@ namespace ImageSearch.iOS
             SetupCamera();
 		}
 
+
         
 
-    
-        
+        [Export("collectionView:didSelectItemAtIndexPath:")]
+        public void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
+        {
+            var item = viewModel.Images[indexPath.Row];
 
-		public override void DidReceiveMemoryWarning ()
+            var page = new DetailsPage(item, viewModel);
+
+            var controller = page.CreateViewController();
+
+            NavigationController.PushViewController(controller, true);
+        }
+
+
+        public override void DidReceiveMemoryWarning ()
 		{
 			base.DidReceiveMemoryWarning ();
 			// Release any cached data, images, etc that aren't in use.
@@ -82,6 +95,8 @@ namespace ImageSearch.iOS
 
             return cell;
         }
+
+        
 
         void SetupCamera()
         {

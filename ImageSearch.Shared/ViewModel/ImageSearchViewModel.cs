@@ -20,6 +20,8 @@ namespace ImageSearch.ViewModel
     {
         public ObservableRangeCollection<ImageResult> Images { get; }
 
+        public ImageResult SelectedImage { get; set; }
+
         public ImageSearchViewModel()
         {
             Images = new ObservableRangeCollection<ImageResult>();

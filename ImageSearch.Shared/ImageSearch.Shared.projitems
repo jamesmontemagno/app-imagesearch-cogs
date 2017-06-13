@@ -17,5 +17,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\EmotionService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ServiceKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ImageSearchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\DetailsPage.xaml.cs">
+      <DependentUpon>DetailsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\DetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

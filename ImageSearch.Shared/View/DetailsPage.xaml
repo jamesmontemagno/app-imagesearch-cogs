@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ImageSearch.Shared.View.DetailsPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10">
+                <Image 
+                        HeightRequest="200"
+                        WidthRequest="200"
+                        HorizontalOptions="CenterAndExpand"
+                        Aspect="AspectFill"
+                        Source="{Binding ImageLink}"/>
+                <Label Text="{Binding Title}" FontAttributes="Bold"/>
+                <Label Text="{Binding FileFormat}" FontSize="Large"/>
+                <Label Text="{Binding ContextLink}" FontSize="Micro"/>
+                <Button Text="Analyze Image" Clicked="Button_Clicked"/>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -26,7 +26,7 @@ namespace ImageSearch.Droid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.main);
-
+            
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
             
@@ -80,10 +80,13 @@ namespace ImageSearch.Droid
 
         void SetupCamera()
         {
-            adapter.ItemClick += async (sender, args) =>
+            adapter.ItemClick += (sender, args) =>
             {
-                var image = viewModel.Images[args.Position].ThumbnailLink;
-                await viewModel.AnalyzeImageAsync(image);
+                var image = viewModel.Images[args.Position];
+                viewModel.SelectedImage = image;
+                DetailsActivity.ViewModel = viewModel;
+
+                StartActivity(typeof(DetailsActivity));
             };
 
             var fab = FindViewById<FloatingActionButton>(Resource.Id.fab_photo);
