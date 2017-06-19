@@ -31,7 +31,6 @@ namespace ImageSearch.Droid
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.details);
 
-            Xamarin.Forms.Forms.Init(this, bundle);
 
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
@@ -40,6 +39,7 @@ namespace ImageSearch.Droid
             SupportActionBar.Title = ViewModel.SelectedImage.Title;
             // #1 Initialize
             Forms.Init(this, null);
+
             // #2 Use it
             var frag = new DetailsPage(ViewModel.SelectedImage, ViewModel).CreateFragment(this);
 

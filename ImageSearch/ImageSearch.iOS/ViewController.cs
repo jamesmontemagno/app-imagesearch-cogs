@@ -66,6 +66,7 @@ namespace ImageSearch.iOS
             var page = new DetailsPage(item, viewModel);
 
             var controller = page.CreateViewController();
+            controller.EdgesForExtendedLayout = UIRectEdge.None;
 
             NavigationController.PushViewController(controller, true);
         }
