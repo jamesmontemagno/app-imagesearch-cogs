@@ -1,9 +1,5 @@
 ## Image Search 
 
-Checkout Forms Embedding Branch: https://github.com/jamesmontemagno/app-imagesearch-cogs/tree/forms-embedding
-
-Read the docs: https://blog.xamarin.com/unleashed-embedding-xamarin-forms-in-xamarin-native/
-
 Demo application built with [Xamarin](http://xamarin.com) to do a Bing and Google Image Search and then use Microsoft Cognitive Services to do emotion face detection on the results or on a photo you take from your device!
 
 Watch the .NET conf video: https://channel9.msdn.com/Events/dotnetConf/2016/iOS--Android-Development-for-the-C-Developer-with-Xamarin

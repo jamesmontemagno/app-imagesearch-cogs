@@ -1,5 +1,6 @@
-﻿using Microsoft.ProjectOxford.Emotion;
-using Microsoft.ProjectOxford.Emotion.Contract;
+﻿using Acr.UserDialogs;
+using Microsoft.ProjectOxford.Common.Contract;
+using Microsoft.ProjectOxford.Emotion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,16 +14,27 @@ namespace ImageSearch.Services
     {
         private static async Task<Emotion[]> GetHappinessAsync(Stream stream)
         {
-            var emotionClient = new EmotionServiceClient(CognitiveServicesKeys.Emotion);
+            var loading = UserDialogs.Instance.Loading("Analyzing...");
+            loading.Show();
 
-            var emotionResults = await emotionClient.RecognizeAsync(stream);
+            var emotionClient = new EmotionServiceClient(
+                CognitiveServicesKeys.Emotion);
 
-            if (emotionResults == null || emotionResults.Count() == 0)
+            try
             {
-                throw new Exception("Can't detect face");
-            }
+                var emotionResults = await emotionClient.RecognizeAsync(stream);
 
-            return emotionResults;
+                if (emotionResults == null || emotionResults.Count() == 0)
+                {
+                    throw new Exception("Can't detect face");
+                }
+
+                return emotionResults;
+            }
+            finally
+            {
+                loading.Hide();
+            }
         }
 
         //Average happiness calculation in case of multiple people
@@ -44,7 +56,7 @@ namespace ImageSearch.Services
             score = score * 100;
             double result = Math.Round(score, 2);
 
-            if (score >= 50)
+            if (score >= 51)
                 return result + " % :-)";
             else
                 return result + "% :-(";

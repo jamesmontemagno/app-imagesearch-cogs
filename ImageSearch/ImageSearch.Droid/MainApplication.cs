@@ -4,6 +4,7 @@ using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Plugin.CurrentActivity;
+using Acr.UserDialogs;
 
 namespace ImageSearch.Droid
 {
@@ -20,6 +21,10 @@ namespace ImageSearch.Droid
         {
             base.OnCreate();
             RegisterActivityLifecycleCallbacks(this);
+
+
+
+            UserDialogs.Init(() => CrossCurrentActivity.Current.Activity);
             //A great place to initialize Xamarin.Insights and Dependency Services!
         }
 
