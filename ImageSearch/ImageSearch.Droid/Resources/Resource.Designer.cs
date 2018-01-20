@@ -63,7 +63,6 @@ namespace ImageSearch.Droid
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahText = global::ImageSearch.Droid.Resource.Styleable.ProgressWheel_ahText;
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextColor = global::ImageSearch.Droid.Resource.Styleable.ProgressWheel_ahTextColor;
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextSize = global::ImageSearch.Droid.Resource.Styleable.ProgressWheel_ahTextSize;
-			global::Splat.Resource.String.library_name = global::ImageSearch.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::ImageSearch.Droid.Resource.Attribute.actionBarSize;
 		}
 		

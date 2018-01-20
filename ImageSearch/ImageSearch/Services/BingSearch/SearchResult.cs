@@ -13,6 +13,7 @@ namespace ImageSearch.Model.BingSearch
 		public int TotalEstimatedMatches { get; set; }
 		[JsonProperty("value")]
 		public List<Image> Images { get; set; }
+
 		[JsonProperty("nextOffsetAddCount")]
 		public int NextOffsetAddCount { get; set; }
 		[JsonProperty("displayShoppingSourcesBadges")]

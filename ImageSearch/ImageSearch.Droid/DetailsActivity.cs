@@ -41,7 +41,8 @@ namespace ImageSearch.Droid
             Forms.Init(this, null);
 
             // #2 Use it
-            var frag = new DetailsPage(ViewModel.SelectedImage, ViewModel).CreateFragment(this);
+            var frag = new DetailsPage(ViewModel.SelectedImage, ViewModel).
+                CreateFragment(this);
 
             var ft = FragmentManager.BeginTransaction();
             ft.Replace(Resource.Id.fragment_frame_layout, frag, "main");

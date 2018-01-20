@@ -16,6 +16,25 @@ namespace ImageSearch.Shared.View
 	{
         ImageResult result;
         ImageSearchViewModel viewModel;
+        public DetailsPage()
+        {
+            InitializeComponent();
+            this.result = new ImageResult
+            {
+                ContextLink = "http://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Capuchin_Costa_Rica.jpg/200px-Capuchin_Costa_Rica.jpg",
+                FileFormat = "jpg",
+                ImageLink = "http://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Capuchin_Costa_Rica.jpg/200px-Capuchin_Costa_Rica.jpg",
+                ThumbnailLink = "http://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Capuchin_Costa_Rica.jpg/200px-Capuchin_Costa_Rica.jpg",
+                Title="Capuchin"
+            };
+
+            this.viewModel = new ImageSearchViewModel
+            {
+                SelectedImage = this.result
+            };
+
+            BindingContext = viewModel;
+        }
         public DetailsPage (ImageResult result, ImageSearchViewModel viewModel)
 		{
 			InitializeComponent ();

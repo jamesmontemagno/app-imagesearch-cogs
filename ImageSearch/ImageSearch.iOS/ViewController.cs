@@ -2,6 +2,8 @@
 using Foundation;
 using UIKit;
 
+
+
 using ImageSearch.ViewModel;
 using SDWebImage;
 using ImageSearch.Shared.View;
@@ -31,45 +33,24 @@ namespace ImageSearch.iOS
             ButtonSearch.TouchUpInside += async (sender, args) =>
             {
                 ButtonSearch.Enabled = false;
-                ActivityIsLoading.StartAnimating();
 
-                await UIView.AnimateAsync(.5, () =>
-                {
-                    CollectionViewImages.Alpha = 0;
-                });
+                ActivityIsLoading.StartAnimating();
+                
 
                 await viewModel.SearchForImagesAsync(TextFieldQuery.Text);
                 CollectionViewImages.ReloadData();
-
-
-                await UIView.AnimateAsync(.5, () =>
-                {
-                    CollectionViewImages.Alpha = 1;
-                });
-
+                
 
                 ActivityIsLoading.StopAnimating();
+
                 ButtonSearch.Enabled = true;
             };
 
             SetupCamera();
+            
 		}
 
-
         
-
-        [Export("collectionView:didSelectItemAtIndexPath:")]
-        public void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
-        {
-            var item = viewModel.Images[indexPath.Row];
-
-            var page = new DetailsPage(item, viewModel);
-
-            var controller = page.CreateViewController();
-            controller.EdgesForExtendedLayout = UIRectEdge.None;
-
-            NavigationController.PushViewController(controller, true);
-        }
 
 
         public override void DidReceiveMemoryWarning ()
@@ -77,6 +58,7 @@ namespace ImageSearch.iOS
 			base.DidReceiveMemoryWarning ();
 			// Release any cached data, images, etc that aren't in use.
 		}
+
 
 
         public nint GetItemsCount(UICollectionView collectionView, nint section) => 
@@ -97,7 +79,7 @@ namespace ImageSearch.iOS
             return cell;
         }
 
-        
+
 
         void SetupCamera()
         {
@@ -112,6 +94,22 @@ namespace ImageSearch.iOS
                     ButtonSearch.Enabled = true;
                     ActivityIsLoading.StopAnimating();
                 });
+        }
+
+       
+
+
+        [Export("collectionView:didSelectItemAtIndexPath:")]
+        public void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
+        {
+            var item = viewModel.Images[indexPath.Row];
+
+            var page = new DetailsPage(item, viewModel);
+
+            var controller = page.CreateViewController();
+            controller.EdgesForExtendedLayout = UIRectEdge.None;
+
+            NavigationController.PushViewController(controller, true);
         }
     }
 }

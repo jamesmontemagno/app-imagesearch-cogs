@@ -26,13 +26,13 @@ namespace ImageSearch.Droid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.main);
-            
+
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
-            
+
 
             viewModel = new ImageSearchViewModel();
-            
+
 
             var progress = FindViewById<ProgressBar>(Resource.Id.my_progress);
             var query = FindViewById<EditText>(Resource.Id.my_query);
@@ -49,14 +49,15 @@ namespace ImageSearch.Droid
                 progress.Visibility = ViewStates.Gone;
                 button.Enabled = true;
             };
-
+           
 
             SetupMainView();
             SetupCamera();
         }
- 
 
-       
+
+
+
         RecyclerView recyclerView;
         RecyclerView.LayoutManager layoutManager;
         ImageAdapter adapter;
@@ -72,14 +73,6 @@ namespace ImageSearch.Droid
 
             recyclerView.SetLayoutManager(layoutManager);
 
-
-
-
-            UserDialogs.Init(this);
-        }
-
-        void SetupCamera()
-        {
             adapter.ItemClick += (sender, args) =>
             {
                 var image = viewModel.Images[args.Position];
@@ -88,7 +81,10 @@ namespace ImageSearch.Droid
 
                 StartActivity(typeof(DetailsActivity));
             };
+        }
 
+        void SetupCamera()
+        {
             var fab = FindViewById<FloatingActionButton>(Resource.Id.fab_photo);
             fab.Visibility = ViewStates.Visible;
 
