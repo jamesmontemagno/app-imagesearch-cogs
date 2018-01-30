@@ -32,6 +32,8 @@ namespace ImageSearch.iOS
 
             viewModel.Images.CollectionChanged += (sender, args) => BeginInvokeOnMainThread(() => CollectionViewImages.ReloadData());
             viewModel.PropertyChanged += ViewModel_PropertyChanged;
+            TextFieldQuery.Text = viewModel.SearchQuery;
+            TextFieldQuery.EditingChanged += (sender, args) => viewModel.SearchQuery = TextFieldQuery.Text;
 
             ButtonSearch.TouchUpInside += (sender, args) =>
             {
@@ -61,11 +63,6 @@ namespace ImageSearch.iOS
             });
         }
 
-        public override void DidReceiveMemoryWarning ()
-		{
-			base.DidReceiveMemoryWarning ();
-			// Release any cached data, images, etc that aren't in use.
-		}
 
 
 
@@ -112,6 +109,13 @@ namespace ImageSearch.iOS
             controller.EdgesForExtendedLayout = UIRectEdge.None;
 
             NavigationController.PushViewController(controller, true);
+        }
+
+
+        public override void DidReceiveMemoryWarning()
+        {
+            base.DidReceiveMemoryWarning();
+            // Release any cached data, images, etc that aren't in use.
         }
     }
 }
