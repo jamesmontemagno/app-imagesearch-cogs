@@ -46,12 +46,5 @@ namespace ImageSearch.Shared.View
             BindingContext = viewModel;
 
         }
-
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            var image = result.ThumbnailLink;
-            await viewModel.AnalyzeImageAsync(image);
-
-        }
     }
 }

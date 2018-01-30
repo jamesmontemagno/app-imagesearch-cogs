@@ -21,6 +21,10 @@ namespace ImageSearch.Droid
     {
 
         ImageSearchViewModel viewModel;
+        Button button;
+        ProgressBar progress;
+        EditText query;
+        FloatingActionButton fab;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -34,29 +38,41 @@ namespace ImageSearch.Droid
             viewModel = new ImageSearchViewModel();
 
 
-            var progress = FindViewById<ProgressBar>(Resource.Id.my_progress);
-            var query = FindViewById<EditText>(Resource.Id.my_query);
-            var button = FindViewById<Button>(Resource.Id.my_button);
-
+            progress = FindViewById<ProgressBar>(Resource.Id.my_progress);
+            query = FindViewById<EditText>(Resource.Id.my_query);
+            button = FindViewById<Button>(Resource.Id.my_button);
 
             button.Click += async (sender, args) =>
             {
-                button.Enabled = false;
-                progress.Visibility = ViewStates.Visible;
-
-                await viewModel.SearchForImagesAsync(query.Text.Trim());
-
-                progress.Visibility = ViewStates.Gone;
-                button.Enabled = true;
+                viewModel.SearchForImageCommand.Execute(null);
             };
-           
+
+
+            query.Text = viewModel.SearchQuery;
+            query.TextChanged += (sender, args) => viewModel.SearchQuery = query.Text;
+            viewModel.PropertyChanged += ViewModel_PropertyChanged;
+
 
             SetupMainView();
             SetupCamera();
         }
 
-
-
+        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            RunOnUiThread(() =>
+            {
+                switch(e.PropertyName)
+                {
+                    case nameof(viewModel.IsBusy):
+                        {
+                            button.Enabled = !viewModel.IsBusy;
+                            fab.Enabled = !viewModel.IsBusy;
+                            progress.Visibility = viewModel.IsBusy ? ViewStates.Visible : ViewStates.Gone;
+                        }
+                        break;
+                }
+            });
+        }
 
         RecyclerView recyclerView;
         RecyclerView.LayoutManager layoutManager;
@@ -85,14 +101,12 @@ namespace ImageSearch.Droid
 
         void SetupCamera()
         {
-            var fab = FindViewById<FloatingActionButton>(Resource.Id.fab_photo);
+            fab = FindViewById<FloatingActionButton>(Resource.Id.fab_photo);
             fab.Visibility = ViewStates.Visible;
 
-            fab.Click += async (sender, args) =>
+            fab.Click +=  (sender, args) =>
             {
-                fab.Enabled = false;
-                await viewModel.TakePhotoAndAnalyzeAsync();
-                fab.Enabled = true;
+                viewModel.TakePhotoAndAnalyzeCommand.Execute(null);
             };
         }
 

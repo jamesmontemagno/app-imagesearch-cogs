@@ -15,7 +15,7 @@
                 <Label Text="{Binding SelectedImage.Title}" TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand"/>
                 <Label Text="{Binding SelectedImage.FileFormat}" TextColor="Black" FontSize="Large"/>
                 <Label Text="{Binding SelectedImage.ContextLink}" TextColor="Black" FontSize="Micro"/>
-                <Button Text="Analyze Image" Clicked="Button_Clicked"/>
+                <Button Text="Analyze Image" Command="{Binding AnalyzeImageCommand}" CommandParameter="{Binding SelectedImage.ThumbnailLink}"/>
                 <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
             </StackLayout>
         </ScrollView>

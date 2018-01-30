@@ -30,28 +30,36 @@ namespace ImageSearch.iOS
             CollectionViewImages.WeakDataSource = this;
             CollectionViewImages.WeakDelegate = this;
 
-            ButtonSearch.TouchUpInside += async (sender, args) =>
+            viewModel.Images.CollectionChanged += (sender, args) => BeginInvokeOnMainThread(() => CollectionViewImages.ReloadData());
+            viewModel.PropertyChanged += ViewModel_PropertyChanged;
+
+            ButtonSearch.TouchUpInside += (sender, args) =>
             {
-                ButtonSearch.Enabled = false;
-
-                ActivityIsLoading.StartAnimating();
-                
-
-                await viewModel.SearchForImagesAsync(TextFieldQuery.Text);
-                CollectionViewImages.ReloadData();
-                
-
-                ActivityIsLoading.StopAnimating();
-
-                ButtonSearch.Enabled = true;
+                viewModel.SearchForImageCommand.Execute(null);
             };
 
             SetupCamera();
             
 		}
 
-        
-
+        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            BeginInvokeOnMainThread(() =>
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(viewModel.IsBusy):
+                        {
+                            ButtonSearch.Enabled = !viewModel.IsBusy;
+                            if (viewModel.IsBusy)
+                                ActivityIsLoading.StartAnimating();
+                            else
+                                ActivityIsLoading.StopAnimating();
+                        }
+                        break;
+                }
+            });
+        }
 
         public override void DidReceiveMemoryWarning ()
 		{
@@ -84,15 +92,9 @@ namespace ImageSearch.iOS
         void SetupCamera()
         {
             NavigationItem.RightBarButtonItem = new UIBarButtonItem(
-                UIBarButtonSystemItem.Camera, async delegate
+                UIBarButtonSystemItem.Camera,  delegate
                 {
-                    ButtonSearch.Enabled = false;
-                    ActivityIsLoading.StartAnimating();
-
-                    await viewModel.TakePhotoAndAnalyzeAsync(false);
-
-                    ButtonSearch.Enabled = true;
-                    ActivityIsLoading.StopAnimating();
+                     viewModel.TakePhotoAndAnalyzeCommand.Execute(false);
                 });
         }
 

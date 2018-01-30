@@ -13,40 +13,62 @@ using Acr.UserDialogs;
 using Plugin.Media.Abstractions;
 using ImageSearch.Model.BingSearch;
 using Plugin.Connectivity;
+using Xamarin.Forms;
+using System.Windows.Input;
 
 namespace ImageSearch.ViewModel
 {
-    public class ImageSearchViewModel
+    public class ImageSearchViewModel : BaseViewModel
     {
+
+        string searchQuery = "cute monkey";
+        public string SearchQuery
+        {
+            get => searchQuery;
+            set => SetProperty(ref searchQuery, value);
+        }
+
+
         public ObservableRangeCollection<ImageResult> Images { get; }
 
         public ImageResult SelectedImage { get; set; }
+        
 
         public ImageSearchViewModel()
         {
             Images = new ObservableRangeCollection<ImageResult>();
+            SearchForImageCommand = new Command(async () => await SearchForImagesAsync());
+            AnalyzeImageCommand = new Command<string>(async (query) => await AnalyzeImageAsync(query));
+            TakePhotoAndAnalyzeCommand = new Command<bool>(async (useCamera) => await TakePhotoAndAnalyzeAsync(useCamera));
         }
-        
-        public async Task<bool> SearchForImagesAsync(string query)
+
+        public ICommand SearchForImageCommand { get; }
+
+        async Task SearchForImagesAsync()
         {
-            if(string.IsNullOrWhiteSpace(query))
+            if (IsBusy)
+                return;
+
+
+            if(string.IsNullOrWhiteSpace(SearchQuery))
             {
                 await UserDialogs.Instance.AlertAsync("Please search for cute things");
-                return false;
+                return;
             }
 
             if(!CrossConnectivity.Current.IsConnected)
             {
                 await UserDialogs.Instance.AlertAsync("On interwebs :(");
-                return false;
+                return;
 
             }
             
 			//Bing Image API
 			var url = $"https://api.cognitive.microsoft.com/bing/v5.0/images/" + 
-				      $"search?q={query}" +
+				      $"search?q={SearchQuery}" +
 					  $"&count=20&offset=0&mkt=en-us&safeSearch=Strict";
 
+            IsBusy = true;
             try
             {
                 var headerKey = "Ocp-Apim-Subscription-Key";
@@ -77,19 +99,24 @@ namespace ImageSearch.ViewModel
             {
 
                 await UserDialogs.Instance.AlertAsync("Something went terribly wrong, please open a ticket with support.");
-                return false;
+                return;
+            }
+            finally
+            {
+                IsBusy = false;
             }
 
-			return true;
+			return;
         }
 
-
-   
-
-
-        public async Task AnalyzeImageAsync(string imageUrl)
+        public Command<string> AnalyzeImageCommand { get; }
+        async Task AnalyzeImageAsync(string imageUrl)
         {
+            if (IsBusy)
+                return;
+
             var result = string.Empty;
+            IsBusy = true;
             try
             {
                 using (var client = new HttpClient())
@@ -105,20 +132,28 @@ namespace ImageSearch.ViewModel
             {
                 result =  "Unable to analyze image";
             }
+            finally
+            {
+                IsBusy = false;
+            }
             await UserDialogs.Instance.AlertAsync(result);
 
         }
 
 
+        public Command<bool> TakePhotoAndAnalyzeCommand { get; }
 
-
-        public async Task TakePhotoAndAnalyzeAsync(bool useCamera = true)
+        async Task TakePhotoAndAnalyzeAsync(bool useCamera = true)
         {
+            if (IsBusy)
+                return;
+
             string result = "Error";
             MediaFile file = null;
 
             try
             {
+                IsBusy = true;
                 await CrossMedia.Current.Initialize();
 
                 if (useCamera)
@@ -149,6 +184,10 @@ namespace ImageSearch.ViewModel
             catch(Exception ex)
             {
                 result =  ex.Message;
+            }
+            finally
+            {
+                IsBusy = false;
             }
 
             await UserDialogs.Instance.AlertAsync(result);
