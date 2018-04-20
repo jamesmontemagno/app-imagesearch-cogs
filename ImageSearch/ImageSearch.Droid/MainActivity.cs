@@ -31,6 +31,8 @@ namespace ImageSearch.Droid
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.main);
 
+            Xamarin.Essentials.Platform.Init(this, bundle);
+
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
@@ -113,7 +115,9 @@ namespace ImageSearch.Droid
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
