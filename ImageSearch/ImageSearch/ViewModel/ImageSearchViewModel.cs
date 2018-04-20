@@ -12,9 +12,9 @@ using Plugin.Media;
 using Acr.UserDialogs;
 using Plugin.Media.Abstractions;
 using ImageSearch.Model.BingSearch;
-using Plugin.Connectivity;
 using Xamarin.Forms;
 using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace ImageSearch.ViewModel
 {
@@ -56,9 +56,9 @@ namespace ImageSearch.ViewModel
                 return;
             }
 
-            if(!CrossConnectivity.Current.IsConnected)
+            if(Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
-                await UserDialogs.Instance.AlertAsync("On interwebs :(");
+                await UserDialogs.Instance.AlertAsync("No interwebs :(");
                 return;
 
             }

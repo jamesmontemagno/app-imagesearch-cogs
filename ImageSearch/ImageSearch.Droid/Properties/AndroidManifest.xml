@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.imagesearch" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="24" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<application android:label="@string/ApplicationName" android:icon="@drawable/Icon" android:theme="@style/Theme.MyTheme">
 		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.imagesearch.fileprovider" android:exported="false" android:grantUriPermissions="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
