@@ -64,7 +64,7 @@ namespace ImageSearch.ViewModel
             }
             
 			//Bing Image API
-			var url = $"https://api.cognitive.microsoft.com/bing/v7.0/images/" + 
+			var url = $"https://api.cognitive.microsoft.com/bing/v5.0/images/" + 
 				      $"search?q={SearchQuery}" +
 					  $"&count=20&offset=0&mkt=en-us&safeSearch=Strict";
 

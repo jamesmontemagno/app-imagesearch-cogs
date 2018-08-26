@@ -234,5 +234,3 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-ImageSearch/ImageSearch.Droid/Resources/Resource.Designer.cs
-ImageSearch/ImageSearch/Services/ServiceKeys.cs
