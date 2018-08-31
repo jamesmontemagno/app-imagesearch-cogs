@@ -21,7 +21,7 @@ namespace ImageSearch.ViewModel
     public class ImageSearchViewModel : BaseViewModel
     {
 
-        string searchQuery = "cute monkey";
+        string searchQuery = "Happy Guy";
         public string SearchQuery
         {
             get => searchQuery;

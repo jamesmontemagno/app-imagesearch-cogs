@@ -12,7 +12,7 @@ namespace ImageSearch.Services
 {
     public class EmotionService
     {
-        private static async Task<Emotion[]> GetHappinessAsync(Stream stream)
+        private static async Task<FaceResult[]> GetHappinessAsync(Stream stream)
         {
             var loading = UserDialogs.Instance.Loading("Analyzing...");
             loading.Show();
@@ -40,12 +40,12 @@ namespace ImageSearch.Services
         //Average happiness calculation in case of multiple people
         public static async Task<float> GetAverageHappinessScoreAsync(Stream stream)
         {
-            Emotion[] emotionResults = await GetHappinessAsync(stream);
+            FaceResult[] emotionResults = await GetHappinessAsync(stream);
 
             float score = 0;
             foreach (var emotionResult in emotionResults)
             {
-                score = score + emotionResult.Scores.Happiness;
+                score = score + emotionResult.FaceAttributes.Emotion.Happiness;
             }
 
             return score / emotionResults.Count();

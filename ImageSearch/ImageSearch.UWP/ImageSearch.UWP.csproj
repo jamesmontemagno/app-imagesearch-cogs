@@ -141,9 +141,6 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.6</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.ProjectOxford.Emotion">
-      <Version>2.0.40</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.3</Version>
     </PackageReference>
@@ -164,6 +161,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Microsoft.ProjectOxford.Common.csproj">
+      <Project>{7d852ef7-0612-4544-89b7-86d11b189085}</Project>
+      <Name>Microsoft.ProjectOxford.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Emotion\Microsoft.ProjectOxford.Emotion.csproj">
+      <Project>{abfce565-a72f-40ec-9c5e-c330c571e8cb}</Project>
+      <Name>Microsoft.ProjectOxford.Emotion</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImageSearch\ImageSearch.csproj">
       <Project>{716101f2-b618-4917-be0f-999baf970328}</Project>
       <Name>ImageSearch</Name>

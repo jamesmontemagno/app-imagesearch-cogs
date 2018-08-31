@@ -89,12 +89,6 @@
       <HintPath>..\..\packages\BTProgressHUD.1.2.0.6\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.ProjectOxford.Common, Version=2.0.25.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.ProjectOxford.Common.2.0.25\lib\netstandard1.1\Microsoft.ProjectOxford.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ProjectOxford.Emotion, Version=2.0.40.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.ProjectOxford.Emotion.2.0.40\lib\netstandard1.1\Microsoft.ProjectOxford.Emotion.dll</HintPath>
-    </Reference>
     <Reference Include="MvvmHelpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Refractored.MvvmHelpers.1.3.0\lib\netstandard1.0\MvvmHelpers.dll</HintPath>
     </Reference>
@@ -225,6 +219,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Microsoft.ProjectOxford.Common.csproj">
+      <Project>{7d852ef7-0612-4544-89b7-86d11b189085}</Project>
+      <Name>Microsoft.ProjectOxford.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Emotion\Microsoft.ProjectOxford.Emotion.csproj">
+      <Project>{abfce565-a72f-40ec-9c5e-c330c571e8cb}</Project>
+      <Name>Microsoft.ProjectOxford.Emotion</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImageSearch\ImageSearch.csproj">
       <Project>{716101f2-b618-4917-be0f-999baf970328}</Project>
       <Name>ImageSearch</Name>
