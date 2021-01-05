@@ -2,7 +2,7 @@
 
 Demo application built with [Xamarin](http://xamarin.com) to do a Bing and Google Image Search and then use Microsoft Cognitive Services to do emotion face detection on the results or on a photo you take from your device!
 
-Watch the .NET conf video: https://channel9.msdn.com/Events/dotnetConf/2016/iOS--Android-Development-for-the-C-Developer-with-Xamarin
+Watch the .NET conf video: https://channel9.msdn.com/Events/dotnetConf/2016/iOS--Android-Development-for-the-C-Developer-with-Xamarin?WT.mc_id=friends-0000-jamont
 
 ## Setup
 
@@ -10,9 +10,9 @@ You must use setup a few API keys that can be set in ImageSearch/Services/Servic
 
 ### Microsoft Cognitive Services
 
-Setup a Emotion API key for Cognitive Services at: https://www.microsoft.com/cognitive-services/
+Setup a Emotion API key for Cognitive Services at: https://www.microsoft.com/cognitive-services/?WT.mc_id=friends-0000-jamont
 
-Setup a Bing Search API Key at: https://microsoft.com/cognitive-services
+Setup a Bing Search API Key at: https://microsoft.com/cognitive-services?WT.mc_id=friends-0000-jamont
 
 
 ## Open source libraries
